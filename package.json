@@ -8,7 +8,7 @@
     "test": "index.js",
     "start": "node index.js",
     "dev": "concurrently \"npm i \"\" npm run client\"",
-    "build": "echo 'Build script placeholder'"
+    "build": "[my-framework] build --output public"
   },
   "keywords": [],
   "author": "",
