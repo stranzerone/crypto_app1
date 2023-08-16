@@ -7,10 +7,19 @@ import  session  from 'express-session';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken'
 import path from 'path';
+import { fileURLToPath } from 'url';
 const saltRound = 5;
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
 
+// Get the directory name
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+
+/*
 app.use(
   session({
     key:"userId",
@@ -25,14 +34,33 @@ app.use(
    
 
   })
-)
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname,'../client/build')))
-app.get('*',function(req,res){
-  res.sendFile(path.join(__dirname,'../client/build/index.html')
-  )
+) */
 
-})
+
+
+
+app.use(
+  session({
+   
+    key: 'userId',
+    secret: 'subscribe',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: false,
+      httpOnly: false,
+      secure: false,
+    },
+  })
+);
+app.use(cookieParser());
+
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 const PORT = process.env.PORT || 5000
 mongoose.connect('mongodb+srv://SahilMulani:Sahil2165@cluster0.yqlks9v.mongodb.net/').then(
