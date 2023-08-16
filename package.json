@@ -8,7 +8,7 @@
     "test": "index.js",
     "start": "node index.js",
     "dev": "concurrently \"npm i \"\" npm run client\"",
-    "build": "[my-framework] build --output public"
+    "build": "npm build --output public"
   },
   "keywords": [],
   "author": "",
